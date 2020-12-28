@@ -15,4 +15,11 @@ function readInputOneLineWithNumbers (directory, fileName) {
     .map((value) => Number(value))
 }
 
-module.exports = { readInputOneIntPerLine, readInputOneLineWithNumbers }
+function readCsvInput (directory, fileName) {
+  const filePath = path.join(directory, 'data', fileName)
+  return fs.readFileSync(filePath, 'utf8')
+    .split('\n')
+    .map((value) => value.split(','))
+}
+
+module.exports = { readInputOneIntPerLine, readInputOneLineWithNumbers, readCsvInput }
