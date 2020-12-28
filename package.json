@@ -4,5 +4,18 @@
   "main": "index.js",
   "repository": "git@github.com:lnguyenh/aoc-2019.git",
   "author": "Lâm Nguyen Hoang <lamnguyenhoang@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "config": {
+    "directory": "01"
+  },
+  "scripts": {
+    "start": "node ./src/$npm_config_directory/main.js",
+    "check-env": "node -e 'console.log(process.env)' | grep npm"
+  },
+  "devDependencies": {
+    "standard": "*"
+  },
+  "dependencies": {
+    "ramda": "^0.27.1"
+  }
 }
