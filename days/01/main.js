@@ -1,10 +1,8 @@
 const { pipe, sum } = require('ramda')
-const { readInput } = require('../utils/readInput')
-
-const INPUT_FILE = 'input.csv'
+const { readInputOneIntPerLine } = require('../utils/readInput')
 
 function getFuelsForMasses (masses) {
-  return masses.map((mass) => Math.floor(Number(mass) / 3) - 2)
+  return masses.map((mass) => Math.floor(mass / 3) - 2)
 }
 
 function getTotalFuel (fuelArray) {
@@ -14,17 +12,8 @@ function getTotalFuel (fuelArray) {
   return total + getTotalFuel(reduced)
 }
 
-const doPart1 = pipe(
-  readInput,
-  getFuelsForMasses,
-  sum
-)
-
-const doPart2 = pipe(
-  readInput,
-  getFuelsForMasses,
-  getTotalFuel
-)
-
+const INPUT_FILE = 'input.csv'
+const doPart1 = pipe(readInputOneIntPerLine, getFuelsForMasses, sum)
+const doPart2 = pipe(readInputOneIntPerLine, getFuelsForMasses, getTotalFuel)
 console.log('part 1: ' + doPart1(__dirname, INPUT_FILE))
 console.log('part 2: ' + doPart2(__dirname, INPUT_FILE))
