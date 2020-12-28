@@ -1,0 +1,8 @@
+{
+  "name": "aoc-2019",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:lnguyenh/aoc-2019.git",
+  "author": "Lâm Nguyen Hoang <lamnguyenhoang@gmail.com>",
+  "license": "MIT"
+}
