@@ -1,14 +1,12 @@
 const { update, pipe } = require('ramda')
-const prompt = require('prompt')
+const readlineSync = require('readline-sync')
 
 function initializeProgram (array) {
   return { i: 0, program: array }
 }
 
-async function getInput () {
-  prompt.start()
-  const [input] = await prompt.get(['input'])
-  return input
+function getInput () {
+  return Number(readlineSync.question('Intcode input: '))
 }
 
 function runProgram ({ i, program }) {
