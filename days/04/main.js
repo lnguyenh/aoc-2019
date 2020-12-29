@@ -3,27 +3,24 @@ const MAX = 785961
 
 function meetsCriteria (n, isPart2) {
   const s = n.toString()
-  const match = s.match(/((.)\2)(.)*((.)\4)*/)
-  if (!match) return false
+  if (!/((.)\2)/.exec(s)) return false
   if (!/^(?=\d{6}$)1*2*3*4*5*6*7*8*9*$/.exec(s)) return false
   if (isPart2) {
-    const x = match.slice(1)
-    console.log(x)
-    if (x.every((m) => {
-      if (m && m.length === 2) {
-        const t = m.slice(-1).repeat(3)
-        console.log(t, s)
-        if (s.includes(t)) {
-          return true
-        } else {
-          return false
-        }
-      } else {
-        return true
-      }
-    })) return false
+    const s2 = s.split('').reduce(countConsecutiveCharacters, [])
+    const counts = s2.map((o) => o.count)
+    if (!counts.includes(2)) return false
   }
   return true
+}
+
+function countConsecutiveCharacters (acc, curr) {
+  const lastCharacter = acc.length === 0 ? '?' : acc[acc.length - 1].character
+  if (curr === lastCharacter) {
+    acc[acc.length - 1].count = acc[acc.length - 1].count + 1
+  } else {
+    acc.push({ character: curr, count: 1 })
+  }
+  return acc
 }
 
 function * passwordGenerator (min, max, isPart2) {
@@ -42,13 +39,9 @@ while (generator1.next().value) {
 
 const generator2 = passwordGenerator(MIN, MAX, true)
 let counter2 = 0
-let value = generator2.next().value
-while (value) {
+while (generator2.next().value) {
   counter2++
-  value = generator2.next().value
-  console.log(value)
 }
 
 console.log('part 1: ' + counter1)
 console.log('part 2: ' + counter2)
-console.log('part 2: ' + meetsCriteria(467779, true))
