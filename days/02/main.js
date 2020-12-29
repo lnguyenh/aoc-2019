@@ -13,7 +13,9 @@ function patchArray (array, noun, verb) {
   return clonedArray
 }
 
-function extractAnswer (state) { return state.program[0] }
+function extractAnswer (state) {
+  return state.program[0]
+}
 
 function findNounAndVerb (program) {
   for (let noun = 0; noun < 99; noun++) {
