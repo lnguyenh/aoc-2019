@@ -1,5 +1,5 @@
 const { pipe, sum } = require('ramda')
-const { readInputOneIntPerLine } = require('../utils/readInput')
+const { readInputOneIntPerLine } = require('../../inputReading/readInput')
 
 function getFuelsForMasses (masses) {
   return masses.map((mass) => Math.floor(mass / 3) - 2)

@@ -1,6 +1,6 @@
-const { runIntCode } = require('../intcode/engine')
+const { runIntCode } = require('../../intcode/engine')
 const { pipe, clone } = require('ramda')
-const { readInputOneLineWithNumbers } = require('../utils/readInput')
+const { readInputOneLineWithNumbers } = require('../../inputReading/readInput')
 
 function restoreGravityAssist (array) {
   return patchArray(array, 12, 2)

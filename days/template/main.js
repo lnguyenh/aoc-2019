@@ -1,5 +1,5 @@
 const { pipe } = require('ramda')
-const { readInputOneLineWithNumbers } = require('../utils/readInput')
+const { readInputOneLineWithNumbers } = require('../../inputReading/readInput')
 
 const INPUT_FILE = 'input.csv'
 const doPart1 = pipe(readInputOneLineWithNumbers)

@@ -1,5 +1,5 @@
 const { pipe, sum } = require('ramda')
-const { readCsvInput } = require('../utils/readInput')
+const { readCsvInput } = require('../../inputReading/readInput')
 
 class Path {
   constructor (instructions) {
