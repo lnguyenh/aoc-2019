@@ -1,4 +1,5 @@
-const { update, pipe, clone } = require('ramda')
+const { runIntCode } = require('../intcode/engine')
+const { pipe, clone } = require('ramda')
 const { readInputOneLineWithNumbers } = require('../utils/readInput')
 
 function restoreGravityAssist (array) {
@@ -12,28 +13,7 @@ function patchArray (array, noun, verb) {
   return clonedArray
 }
 
-function initializeProgram (array) {
-  return { i: 0, program: array }
-}
-
 function extractAnswer (state) { return state.program[0] }
-
-function runProgram ({ i, program }) {
-  switch (program[i]) {
-    case 1:
-      return runProgram({
-        i: i + 4,
-        program: update(program[i + 3], program[program[i + 1]] + program[program[i + 2]], program)
-      })
-    case 2:
-      return runProgram({
-        i: i + 4,
-        program: update(program[i + 3], program[program[i + 1]] * program[program[i + 2]], program)
-      })
-    case 99:
-      return { i, program }
-  }
-}
 
 function findNounAndVerb (program) {
   for (let noun = 0; noun < 99; noun++) {
@@ -46,7 +26,7 @@ function findNounAndVerb (program) {
   return null
 }
 
-const getProgramAnswer = pipe(initializeProgram, runProgram, extractAnswer)
+const getProgramAnswer = pipe(runIntCode, extractAnswer)
 
 const INPUT_FILE = 'input.csv'
 const doPart1 = pipe(readInputOneLineWithNumbers, restoreGravityAssist, getProgramAnswer)
