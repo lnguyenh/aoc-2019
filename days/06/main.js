@@ -2,11 +2,10 @@ const { pipe, curry } = require('ramda')
 const { readLines, splitBy } = require('../../inputReading/readInput')
 
 function createRelationships (array) {
-  const planets = array.reduce((planets, [sun, planet]) => {
+  return array.reduce((planets, [sun, planet]) => {
     planets.set(planet, sun)
     return planets
   }, new Map())
-  return planets
 }
 
 function countSuns (planet, planets) {
