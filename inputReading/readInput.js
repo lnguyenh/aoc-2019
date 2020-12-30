@@ -14,9 +14,12 @@ const readInputOneLineWithNumbers = pipe(readFile, (blob) => blob.split(',').map
 
 const readCsvInput = pipe(readLines, (blob) => blob.map((value) => value.split(',')))
 
+const splitBy = (separator, array) => { return array.map((blob) => blob.split(separator)) }
+
 module.exports = {
   readInputOneIntPerLine,
   readInputOneLineWithNumbers,
   readCsvInput,
-  readLines
+  readLines,
+  splitBy
 }

@@ -1,16 +1,11 @@
 const { pipe, curry } = require('ramda')
-const { readLines } = require('../../inputReading/readInput')
-
-function splitByParenthesis (lines) {
-  return lines.map((line) => line.split(')'))
-}
+const { readLines, splitBy } = require('../../inputReading/readInput')
 
 function createRelationships (array) {
   const planets = array.reduce((planets, [sun, planet]) => {
     planets.set(planet, sun)
     return planets
   }, new Map())
-
   return planets
 }
 
@@ -27,7 +22,7 @@ function countOrbits (planets) {
   return numOrbits
 }
 
-const _getTransfersForPlanet = curry((distance, planet, planets) => {
+function _getTransfersForPlanet (distance, planet, planets) {
   if (planets.has(planet)) {
     const transfers = _getTransfersForPlanet(distance + 1, planets.get(planet), planets)
     transfers.set(planet, distance)
@@ -36,9 +31,9 @@ const _getTransfersForPlanet = curry((distance, planet, planets) => {
     // Last planet
     return new Map()
   }
-})
+}
 
-const getTransfersForPlanet = _getTransfersForPlanet(-1)
+const getTransfersForPlanet = curry(_getTransfersForPlanet)(-1)
 
 function getSantasAndMyTransfers (planets) {
   const santasTransfers = getTransfersForPlanet('SAN', planets)
@@ -60,7 +55,7 @@ function getMinimumTransfers ([santasTransfers, myTransfers]) {
 }
 
 const INPUT_FILE = 'input.csv'
-const doPart1 = pipe(readLines, splitByParenthesis, createRelationships, countOrbits)
-const doPart2 = pipe(readLines, splitByParenthesis, createRelationships, getSantasAndMyTransfers, getMinimumTransfers)
+const doPart1 = pipe(readLines, curry(splitBy)(')'), createRelationships, countOrbits)
+const doPart2 = pipe(readLines, curry(splitBy)(')'), createRelationships, getSantasAndMyTransfers, getMinimumTransfers)
 console.log('part 1: ' + doPart1(__dirname, INPUT_FILE))
 console.log('part 2: ' + doPart2(__dirname, INPUT_FILE))
