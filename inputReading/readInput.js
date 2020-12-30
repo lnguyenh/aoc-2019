@@ -1,25 +1,22 @@
 const fs = require('fs')
 const path = require('path')
+const { pipe } = require('ramda')
 
-function readInputOneIntPerLine (directory, fileName) {
-  const filePath = path.join(directory, 'data', fileName)
-  return fs.readFileSync(filePath, 'utf8')
-    .split('\n')
-    .map((value) => Number(value))
+const readFile = (directory, fileName) => {
+  return fs.readFileSync(path.join(directory, 'data', fileName), 'utf8')
 }
 
-function readInputOneLineWithNumbers (directory, fileName) {
-  const filePath = path.join(directory, 'data', fileName)
-  return fs.readFileSync(filePath, 'utf8')
-    .split(',')
-    .map((value) => Number(value))
-}
+const readLines = pipe(readFile, (blob) => blob.split('\n'))
 
-function readCsvInput (directory, fileName) {
-  const filePath = path.join(directory, 'data', fileName)
-  return fs.readFileSync(filePath, 'utf8')
-    .split('\n')
-    .map((value) => value.split(','))
-}
+const readInputOneIntPerLine = pipe(readLines, (blob) => blob.map((value) => Number(value)))
 
-module.exports = { readInputOneIntPerLine, readInputOneLineWithNumbers, readCsvInput }
+const readInputOneLineWithNumbers = pipe(readFile, (blob) => blob.split(',').map((value) => Number(value)))
+
+const readCsvInput = pipe(readLines, (blob) => blob.map((value) => value.split(',')))
+
+module.exports = {
+  readInputOneIntPerLine,
+  readInputOneLineWithNumbers,
+  readCsvInput,
+  readLines
+}
